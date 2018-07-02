@@ -30,3 +30,11 @@ parsedBytes = bytes.fromhex(hexString)
 rebuiltString = parsedBytes.decode("utf-8")
 print(rebuiltString)
 print()
+
+
+def generate_pseudo_random_bytes(num_bytes):
+    return bytes(random.getrandbits(8) for _ in range(num_bytes))
+
+
+for _ in range(10):
+    print(generate_pseudo_random_bytes(32).hex())
