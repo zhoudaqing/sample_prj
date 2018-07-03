@@ -9,17 +9,17 @@ def normalize_string(txt):
     return unicodedata.normalize('NFKD', txt)
 
 
-def to_seed(mnemonic, passphrase=''):
-    mn = normalize_string(mnemonics)
+def to_seed(mnemonic_phrase, passphrase=''):
+    mn = normalize_string(mnemonic_phrase)
     p = normalize_string(passphrase)
     return pbkdf2.PBKDF2(mn, u'mnemonic' + p, iterations=2048, macmodule=hmac,
                                  digestmodule=hashlib.sha512).read(64)
 
 
-words = bitcoin.entropy_to_words(bytes.fromhex('066dca1a2bb7e8a1db2832148ce9933eea0f3ac9548d793112d9a95c9407efad'))
+words = bitcoin.entropy_to_words(bytes.fromhex('00000000000000000000000000000000'))
 print(words)
 mnemonics = ' '.join(words)
 print(">" + mnemonics + "<")
 
-entropy1 = to_seed(mnemonics, "TREZOR")
-print(entropy1.hex())
+seed = to_seed(mnemonics, "TREZOR")
+print(seed.hex())
